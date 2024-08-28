@@ -17,7 +17,8 @@ export default async (req, res) => {
     const { prompt, conversationId } = await req.json()
 
     const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
+      apiKey: process.env.OPENAI_API_KEY,
+      baseURL: 'https://api.deepseek.com',
     })
 
     if (!conversations[conversationId]) {
@@ -30,7 +31,7 @@ export default async (req, res) => {
 
     const stream = await openai.chat.completions.create({
       stream: true,
-      model: 'gpt-4o',
+      model: 'deepseek-coder',
       messages: conversations[conversationId]
     })
 
